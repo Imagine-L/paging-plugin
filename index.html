@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分页插件演示</title>
+    <!--  JQUERY -->
+    <script type="text/javascript" src="./lib/jquery-1.11.1-min.js"></script>
+
+    <!--  BOOTSTRAP -->
+    <link rel="stylesheet" type="text/css" href="./lib/bootstrap_3.3.0/css/bootstrap.min.css">
+    <script type="text/javascript" src="./lib/bootstrap_3.3.0/js/bootstrap.min.js"></script>
+
+    <!--  PAGINATION plugin -->
+    <link rel="stylesheet" type="text/css" href="./lib/bs_pagination-master/css/jquery.bs_pagination.min.css">
+    <script type="text/javascript" src="./lib/bs_pagination-master/js/jquery.bs_pagination.min.js"></script>
+    <script type="text/javascript" src="./lib/bs_pagination-master/localization/en.js"></script>
+
+    <script>
+        // 官方说明文档：https://labs.pontikis.net/bs_pagination/docs/
+        $(function () {
+
+            $("#demo_pag1").bs_pagination({
+                currentPage: 2,                 // 当前页页码，如pageNo
+                rowsPerPage: 20,                // 当前页显示的条数，如pageSize
+                totalRows: 1000,                // 总记录数，从数据库去查询
+                totalPages: 50,                 // 总共的页数，计算方式为 totalRows / rowsPerPage
+                visiblePageLinks: 6,            // 页面中可见的页码跳转链接
+                showGoToPage: true,             // 是否显示"跳转到__页"按钮，默认为true
+                showRowsPerPage: true,          // 是否显示用户选择rowsPerPage的输入框
+                showRowsInfo: true,             // 是否显示当前页的一些提示信息
+
+                // 当用户切换页码的时候，触发此函数
+                onChangePage: function(event, pageObj) {          // pageObj会封装当用户切换页码后的currentPage(换页后当前页码)和rowsPerPage(显示条数)  
+                    console.log("换页时...")
+                    console.log(pageObj);               // 通过操作pageObj，去后端请求新的数据
+                },
+                
+                // 在第一次加载的时候触发此函数，作用和onChangePage类似
+                onLoad: function(event, pageObj) {      
+                    console.log("加载时....")
+                    console.log(pageObj);
+                }
+            });
+
+            // 常用函数
+            // $("#demo_pag1").bs_pagination("getOption", "option_name")：可以在页面其他位置，获取到页码的配置信息
+
+        });
+    </script>
+</head>
+
+<body>
+    <!--  Just create a div and give it an ID -->
+    <div id="demo_pag1"></div>
+</body>
+
+</html>
